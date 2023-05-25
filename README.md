@@ -1,0 +1,4 @@
+# CreditNow
+Credit validation application.
+
+
