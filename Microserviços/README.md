@@ -1,5 +1,5 @@
 # Microserviços
-Microserviços é uma arquitetura de desenvolvimento de software, na qual o sistema é divido em pequenos serviços, cada um com sua responsabilidade.
+Microserviços são uma arquitetura de desenvolvimento de software, na qual o sistema é divido em pequenos serviços, cada um com sua responsabilidade.
 Com esse modelo de arquitetura vejo os seguintes benefícios:
 - Vários projetos.
 - Vários times.
