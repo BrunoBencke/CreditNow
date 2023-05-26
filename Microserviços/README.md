@@ -13,6 +13,7 @@ As equipes de desenvolvimento conseguem trabalhar de uma maneira mais ágil, cad
 Eles podem ser implantados tanto na nuvem quanto em estruturas locais e normalmente se comunicam via APIs ou eventos assíncronos.
 Normalmente essas APIs tem uma interface de comunicação padronizada, para que, quando um microserviço necessite ser atualizado ou substituído isso possa ser feito de maneira mais consistente.
 
+![Diagrama Microserviços](https://github.com/BrunoBencke/CreditNow/assets/41764882/3b23b4d4-4b2e-46bb-80f7-6102175ce4cb)
 
 
 
