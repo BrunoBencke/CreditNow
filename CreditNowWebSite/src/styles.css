@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.logo {
+  margin-top: 0;
+  width: 50%;
+  height: 50%;
+}
+  
+.left-section {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  margin-top: -5%;
+}
+
+.middle-section {
+  flex: 0 0 auto;
+  background: linear-gradient(to right, rgb(255, 255, 255), #0E1C41);
+  width: 50px;
+}
+
+.right-section {
+  flex: 1;
+  background-image: url('components/Images/background.png');
+  background-size: cover;
+  background-position: center;
+}
+  
