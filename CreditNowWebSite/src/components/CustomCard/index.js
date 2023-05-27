@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './styles.css';
 import Accept from '../Button/accept';
-import { Card, CardContent, Typography, TextField, Select, MenuItem, CircularProgress } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Select, MenuItem, CircularProgress, Box } from '@mui/material';
+import { CheckCircle, Cancel } from '@mui/icons-material';
 
 const CustomCard = () => {
 
-  const [proposal, setProposal] = useState({ creditAmount: 0, type: 1, installments: 0, firstDueDate: "2023-05-26" });
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().split('T')[0];  
+  const [proposal, setProposal] = useState({ creditAmount: 0, type: 1, installments: 0, firstDueDate: formattedDate });
   const [response, setResponse] = useState();
   const [creditAmountFormated, setCreditAmountFormated] = useState();
   const [creditAmountNotFormated, setCreditAmountNotFormated] = useState();
@@ -34,6 +37,14 @@ const CustomCard = () => {
 
   }, [creditAmountNotFormated]);
 
+  const formatCurrency = (value) => {
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    return formatter.format(value);
+  };
+
   const handleChangeType = (event) => {
     setProposal({ ...proposal, type: event.target.value });
   };
@@ -46,8 +57,6 @@ const CustomCard = () => {
 
     setIsLoading(true);
 
-    console.log(response)
-
     const requestInfo = {
       method: 'POST',
       headers: new Headers({
@@ -55,8 +64,6 @@ const CustomCard = () => {
       }),
       body: JSON.stringify(proposal)
     };
-
-    console.log(JSON.stringify(proposal))
 
     await fetch(process.env.REACT_APP_BASE_URL + '/credit/validate', requestInfo)
       .then(response => {
@@ -76,6 +83,7 @@ const CustomCard = () => {
       <CardContent sx={{ width: '60%' }}>
         <Typography variant="h6">Valor do crédito*:</Typography>
         <TextField
+          fullWidth
           sx={{ mb: 2 }}
           value={creditAmountFormated}
           onChange={e => setCreditAmountNotFormated(e.target.value)}
@@ -121,10 +129,28 @@ const CustomCard = () => {
             <></>
           )}
         </Accept>
-        {response?.isApproved !== undefined && (
-          <Typography variant="body1" sx={{ marginTop: 2 }}>
-            {response.isApproved}
-          </Typography>
+        {response !== undefined && (
+          <>
+            <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 3 }}>
+              {response?.isApproved ? (
+                <>
+                  <CheckCircle sx={{ color: 'green' }} />
+                  <Typography variant="body1" sx={{ marginLeft: 1 }}>Crédito Aprovado</Typography>
+                </>
+              ) : (
+                <>
+                  <Cancel sx={{ color: 'red' }} />
+                  <Typography variant="body1" sx={{ marginLeft: 1 }}>Crédito Reprovado</Typography>
+                </>
+              )}
+            </Box>
+            <Box sx={{ marginTop: 2 }}>
+              <Typography variant="body1">Total com Juros: {formatCurrency(response?.totalAmountWithInterest)}</Typography>
+            </Box>
+            <Box sx={{ marginTop: 2 }}>
+              <Typography variant="body1">Valor dos Juros: {formatCurrency(response?.interestAmount)}</Typography>
+            </Box>
+          </>
         )}
       </CardContent>
     </Card>

@@ -10,15 +10,14 @@ body {
 }
 
 .logo {
-  margin-top: 0;
-  width: 50%;
-  height: 50%;
+  width: 42%;
+  height: 42%;
+  margin-top: -7%;
 }
   
 .left-section {
   flex: 1;
   background-color: rgb(255, 255, 255);
-  margin-top: -5%;
 }
 
 .middle-section {
